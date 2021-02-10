@@ -51,6 +51,39 @@ router.post('/', async (req, res) => {
             vencedor,
         } = req.body;
 
+        if(visitante === mandante) {
+            return res.status(400).send({ error: 'É necessario que dois times sejam enviados' });
+        }
+
+        const timeMandante = await Jogo.find({
+            ano,
+            rodada,
+        }).or([
+            {'visitante':mandante},
+            {'mandante':mandante}
+        ]).populate(['visitante', 'mandante']);
+
+
+
+        if(timeMandante.length > 0) {
+            return res.status(400).send({ error: 'O time mandante já jogou nessa roda esse ano' });
+        }
+
+
+
+        const timeVisitante = await Jogo.find({
+            ano,
+            rodada,
+        }).or([
+            {'visitante':visitante},
+            {'mandante':visitante}
+        ]);
+
+
+        if(timeVisitante.length > 0) {
+            return res.status(400).send({ error: 'O time visitante já jogou nessa roda esse ano' });
+        }
+
         const jogo = await Jogo.create({
             ano,
             rodada,
