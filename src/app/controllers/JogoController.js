@@ -18,17 +18,24 @@ router.get('/:ano/:rodada', async (req, res) => {
 
         return res.send({ jogos });
     } catch (err) {
-        return res.status(400).send({ error: 'Error loading projects' });
+        return res.status(400).send({ error: 'Erro ao buscar jogos por ano e rodada' });
     }
 });
 
-router.get('/:projectId', async (req, res) => {
+router.get('/time', async (req, res) => {
     try {
-        const project = await Project.findById(req.params.projectId).populate(['user', 'tasks']);
+        const { ano, time } = req.body;
 
-        return res.send(project);
+        const jogos = await Jogo.find({
+            ano,
+        }).or([
+            {'visitante':time},
+            {'mandante':time}
+        ]).populate(['visitante', 'mandante']);
+
+        return res.send({ jogos });
     } catch (err) {
-        return res.status(400).send({ error: 'Error loading project' });
+        return res.status(400).send({ error: 'Erro ao buscar jogos por ano e time' });
     }
 });
 
