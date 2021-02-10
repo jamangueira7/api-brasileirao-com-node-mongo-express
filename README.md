@@ -165,8 +165,13 @@ Retorno
 }
 ```
 
-- **`DELETE /projects/:timeId`**: Rota para usuarios autenticados excluírem o time;
-
+- **`DELETE /time/:timeId`**: Rota para usuarios autenticados excluírem o time;
+Retorno
+```
+{
+    "msg": "Time excluido com sucesso."
+}
+```
 - **`POST /projects`**: Rota para usuarios autenticados criarem projetos;
 Envio
 ```
