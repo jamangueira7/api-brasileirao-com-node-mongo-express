@@ -172,55 +172,22 @@ Retorno
     "msg": "Time excluido com sucesso."
 }
 ```
-- **`POST /projects`**: Rota para usuarios autenticados criarem projetos;
+- **`POST /time`**: Rota para usuarios autenticados criarem times;
 Envio
 ```
 {
-    "title": "Novo projeto 6",
-    "description": "Descrição do novo projeto 6",
-    "tasks":[
-        {
-            "title": "Novo tarefa 1",
-            "assignedTo": "602292c0630f3d4aec44526b"
-        },
-        {
-            "title": "Novo tarefa 2",
-            "assignedTo": "602292c0630f3d4aec44526b"
-        }
-    ]
+    "nome": "Internacional"    
 }
 ```
 
 Retorno
 ```
 {
-    "project": {
-        "tasks": [
-            {
-                "completed": false,
-                "_id": "60229802b6776f3a00c9fcfc",
-                "title": "Novo tarefa 1",
-                "assignedTo": "602292c0630f3d4aec44526b",
-                "project": "60229802b6776f3a00c9fcfb",
-                "createdAt": "2021-02-09T14:11:14.857Z",
-                "__v": 0
-            },
-            {
-                "completed": false,
-                "_id": "60229802b6776f3a00c9fcfd",
-                "title": "Novo tarefa 2",
-                "assignedTo": "602292c0630f3d4aec44526b",
-                "project": "60229802b6776f3a00c9fcfb",
-                "createdAt": "2021-02-09T14:11:14.857Z",
-                "__v": 0
-            }
-        ],
-        "_id": "60229802b6776f3a00c9fcfb",
-        "title": "Novo projeto 6",
-        "description": "Descrição do novo projeto 6",
-        "user": "6021c427e6d27b282cad985c",
-        "createdAt": "2021-02-09T14:11:14.848Z",
-        "__v": 1
+    "time": {
+        "_id": "60243a96287fc10f7c39c756",
+        "nome": "Internacional",
+        "createdAt": "2021-02-10T19:57:10.053Z",
+        "__v": 0
     }
 }
 ```
