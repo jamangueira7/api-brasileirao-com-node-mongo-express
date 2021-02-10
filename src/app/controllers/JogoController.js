@@ -7,11 +7,16 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
-router.get('/', async (req, res) => {
+router.get('/:ano/:rodada', async (req, res) => {
     try {
-        const projects = await Project.find().populate(['user', 'tasks']);
+        const { ano, rodada } = req.params;
 
-        return res.send({ projects });
+        const jogos = await Jogo.find({
+            ano,
+            rodada,
+        }).populate(['visitante', 'mandante']);
+
+        return res.send({ jogos });
     } catch (err) {
         return res.status(400).send({ error: 'Error loading projects' });
     }
