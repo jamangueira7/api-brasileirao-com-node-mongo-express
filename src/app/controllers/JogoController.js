@@ -22,15 +22,15 @@ router.get('/:ano/:rodada', async (req, res) => {
     }
 });
 
-router.get('/time', async (req, res) => {
+router.get('/time/:ano/:timeId', async (req, res) => {
     try {
-        const { ano, time } = req.body;
+        const { ano, timeId } = req.params;
 
         const jogos = await Jogo.find({
             ano,
         }).or([
-            {'visitante':time},
-            {'mandante':time}
+            {'visitante':timeId},
+            {'mandante':timeId}
         ]).populate(['visitante', 'mandante']);
 
         return res.send({ jogos });
