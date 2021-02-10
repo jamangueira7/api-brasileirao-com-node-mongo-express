@@ -121,7 +121,7 @@ Envio
 }
 ```
 
-- **`GET auth/time`**: Rota para usuarios autenticados verem os times;
+- **`GET /time`**: Rota para usuarios autenticados verem os times;
 Retorno
 ```
 {
@@ -154,7 +154,7 @@ Retorno
 }
 ```
 
-- **`GET auth/time/:timeId`**: Rota para usuarios autenticados verem detalhe do time;
+- **`GET /time/:timeId`**: Rota para usuarios autenticados verem detalhe do time;
 Retorno
 ```
 {
@@ -165,9 +165,9 @@ Retorno
 }
 ```
 
-- **`DELETE auth/projects/:projetecId`**: Rota para usuarios autenticados excluírem projeto;
+- **`DELETE /projects/:timeId`**: Rota para usuarios autenticados excluírem o time;
 
-- **`POST auth/projects`**: Rota para usuarios autenticados criarem projetos;
+- **`POST /projects`**: Rota para usuarios autenticados criarem projetos;
 Envio
 ```
 {
