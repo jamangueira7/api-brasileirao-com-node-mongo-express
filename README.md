@@ -318,7 +318,58 @@ Envio
     ]
 }
 ```
-
+- **`GET /jogos/time/:ano/:timeId`**: Rota para usuarios autenticados consultarem jogos com filtro de ano e time;
+ Retorno
+ ```
+{
+    "jogos": [
+        {
+            "_id": "60244124a67c9d49fc963101",
+            "ano": 2020,
+            "rodada": 1,
+            "visitante": {
+                "_id": "60243a96287fc10f7c39c756",
+                "nome": "Internacional",
+                "createdAt": "2021-02-10T19:57:10.053Z",
+                "__v": 0
+            },
+            "mandante": {
+                "_id": "602435a8a896930b48bad1ce",
+                "nome": "Santos",
+                "createdAt": "2021-02-10T19:36:08.409Z",
+                "__v": 0
+            },
+            "placar_visitante": 1,
+            "placar_mandante": 1,
+            "vencedor": 3,
+            "createdAt": "2021-02-10T20:25:08.369Z",
+            "__v": 0
+        },
+        {
+            "_id": "60244533c1bd9b3e74041864",
+            "ano": 2020,
+            "rodada": 2,
+            "visitante": {
+                "_id": "602435a8a896930b48bad1ce",
+                "nome": "Santos",
+                "createdAt": "2021-02-10T19:36:08.409Z",
+                "__v": 0
+            },
+            "mandante": {
+                "_id": "602435a8a896930b48bad1ce",
+                "nome": "Santos",
+                "createdAt": "2021-02-10T19:36:08.409Z",
+                "__v": 0
+            },
+            "placar_visitante": 1,
+            "placar_mandante": 1,
+            "vencedor": 3,
+            "createdAt": "2021-02-10T20:42:27.701Z",
+            "__v": 0
+        }
+    ]
+}
+```
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
