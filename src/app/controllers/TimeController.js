@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 
         return res.send({ time });
     } catch (err) {
-        return res.status(400).send({ error: 'Erro ao buscar times' });
+        return res.status(400).send({ error: 'Erro ao buscar times.' });
     }
 });
 
@@ -23,7 +23,7 @@ router.get('/:timeId', async (req, res) => {
 
         return res.send(time);
     } catch (err) {
-        return res.status(400).send({ error: 'Erro ao buscar detalhe do time' });
+        return res.status(400).send({ error: 'Erro ao buscar detalhe do time.' });
     }
 });
 
@@ -36,44 +36,33 @@ router.post('/', async (req, res) => {
 
         return res.send({ time });
     } catch (err) {
-        return res.status(400).send({ error: 'Erro ao criar time', err });
+        return res.status(400).send({ error: 'Erro ao criar time.', err });
     }
 });
 
-router.put('/:projectId', async (req, res) => {
+router.put('/:timeId', async (req, res) => {
     try {
-        const { title, description, tasks } = req.body;
+        const { nome } = req.body;
 
-        const project = await Project.findByIdAndUpdate(req.params.projectId,{
-            title,
-            description
+        const time = await Time.findByIdAndUpdate(req.params.timeId,{
+            nome,
         }, { new: true });
 
-        project.tasks = [];
-        await Task.remove({ project: project._id });
+        await time.save();
 
-        await Promise.all(tasks.map(async task => {
-            const projectTask = new Task({ ...task, project: project._id });
-
-            await projectTask.save();
-            project.tasks.push(projectTask);
-        }));
-
-        await project.save();
-
-        return res.send({ project });
+        return res.send({ time });
     } catch (err) {
-        return res.status(400).send({ error: 'Error updating project', err });
+        return res.status(400).send({ error: 'Erro ao alterar o time.', err });
     }
 });
 
-router.delete('/:projectId', async (req, res) => {
+router.delete('/:timeId', async (req, res) => {
     try {
-        await Project.findByIdAndRemove(req.params.projectId);
+        await Time.findByIdAndRemove(req.params.timeId);
 
-        return res.send();
+        return res.send({ msg: 'Time excluido com sucesso.' });
     } catch (err) {
-        return res.status(400).send({ error: 'Error deleting project' });
+        return res.status(400).send({ error: 'Erro ao deletar time.' });
     }
 });
 
