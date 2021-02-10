@@ -20,7 +20,7 @@
   <img alt="Sistema" src=".github/imagem1.PNG" width="100%">
 </p>
 
-## API rest para cadastro de usuario
+## API rest mostrar rodadas do Brasileirão
 
 ## 🚀 Tecnologias
 
@@ -35,13 +35,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-Projeto para cadastro de usuario usando NodeJS, Express, MongoDB e Docker.
-
-Esse projeto foi feito acompanhando a video aula do Youtube:
- 
-- Aula 1[clique aqui](https://www.youtube.com/watch?v=BN_8bCfVp88).
-- Aula 2[clique aqui](https://www.youtube.com/watch?v=KKTX1l3sZGk).
-- Aula 3[clique aqui](https://www.youtube.com/watch?v=Zwdv9RllPqU).
+Projeto para cadastro de rodadas do Brasileirão usando NodeJS, Express, MongoDB e Docker.
 
 ## 🚀 Como Rodar
 
@@ -125,46 +119,36 @@ Envio
     "token": "7bc2403e52028b54fec0aa88357b708646549ce2",
     "password": "654321"
 }
-
 ```
-- **`GET auth/projects`**: Rota para usuarios autenticados verem os projetos;
+
+- **`GET auth/time`**: Rota para usuarios autenticados verem os times;
 Retorno
 ```
 {
-    "projects": [
+    "times": [
         {
-            "tasks": [
-                {
-                    "completed": false,
-                    "_id": "60229802b6776f3a00c9fcfc",
-                    "title": "Novo tarefa 1",
-                    "assignedTo": "602292c0630f3d4aec44526b",
-                    "project": "60229802b6776f3a00c9fcfb",
-                    "createdAt": "2021-02-09T14:11:14.857Z",
-                    "__v": 0
-                },
-                {
-                    "completed": false,
-                    "_id": "60229802b6776f3a00c9fcfd",
-                    "title": "Novo tarefa 2",
-                    "assignedTo": "602292c0630f3d4aec44526b",
-                    "project": "60229802b6776f3a00c9fcfb",
-                    "createdAt": "2021-02-09T14:11:14.857Z",
-                    "__v": 0
-                }
-            ],
-            "_id": "60229802b6776f3a00c9fcfb",
-            "title": "Novo projeto 6",
-            "description": "Descrição do novo projeto 6",
-            "user": {
-                "_id": "6021c427e6d27b282cad985c",
-                "name": "João",
-                "email": "jamjs7@gmail.com",
-                "createdAt": "2021-02-08T23:07:19.427Z",
-                "__v": 0
-            },
-            "createdAt": "2021-02-09T14:11:14.848Z",
-            "__v": 1
+            "_id": "6024358ea896930b48bad1ca",
+            "nome": "Vasco da Gama",
+            "createdAt": "2021-02-10T19:35:42.938Z",
+            "__v": 0
+        },
+        {
+            "_id": "60243598a896930b48bad1cb",
+            "nome": "Flamengo",
+            "createdAt": "2021-02-10T19:35:52.174Z",
+            "__v": 0
+        },
+        {
+            "_id": "6024359ca896930b48bad1cc",
+            "nome": "Botafogo",
+            "createdAt": "2021-02-10T19:35:56.851Z",
+            "__v": 0
+        },
+        {
+            "_id": "602435a5a896930b48bad1cd",
+            "nome": "Fluminense",
+            "createdAt": "2021-02-10T19:36:05.325Z",
+            "__v": 0
         }
     ]
 }

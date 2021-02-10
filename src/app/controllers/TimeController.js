@@ -9,9 +9,9 @@ router.use(authMiddleware);
 
 router.get('/', async (req, res) => {
     try {
-        const time = await Time.find();
+        const times = await Time.find();
 
-        return res.send({ time });
+        return res.send({ times });
     } catch (err) {
         return res.status(400).send({ error: 'Erro ao buscar times.' });
     }
