@@ -244,6 +244,81 @@ Envio
 }
 ```
 
+- **`GET /jogos/:ano/:rodada`**: Rota para usuarios autenticados consultarem jogos com filtro de ano e rodada;
+ Retorno
+ ```
+{
+    "jogos": [
+        {
+            "_id": "60243eb699430622e840ea36",
+            "ano": 2020,
+            "rodada": 1,
+            "visitante": {
+                "_id": "60243598a896930b48bad1cb",
+                "nome": "Flamengo",
+                "createdAt": "2021-02-10T19:35:52.174Z",
+                "__v": 0
+            },
+            "mandante": {
+                "_id": "6024358ea896930b48bad1ca",
+                "nome": "Vasco da Gama",
+                "createdAt": "2021-02-10T19:35:42.938Z",
+                "__v": 0
+            },
+            "placar_visitante": 0,
+            "placar_mandante": 2,
+            "vencedor": 1,
+            "createdAt": "2021-02-10T20:14:46.069Z",
+            "__v": 0
+        },
+        {
+            "_id": "6024410da67c9d49fc963100",
+            "ano": 2020,
+            "rodada": 1,
+            "visitante": {
+                "_id": "602435c3a896930b48bad1d2",
+                "nome": "Atletico Mineiro",
+                "createdAt": "2021-02-10T19:36:35.389Z",
+                "__v": 0
+            },
+            "mandante": {
+                "_id": "602435cfa896930b48bad1d4",
+                "nome": "Gremio",
+                "createdAt": "2021-02-10T19:36:47.014Z",
+                "__v": 0
+            },
+            "placar_visitante": 3,
+            "placar_mandante": 1,
+            "vencedor": 2,
+            "createdAt": "2021-02-10T20:24:45.599Z",
+            "__v": 0
+        },
+        {
+            "_id": "60244124a67c9d49fc963101",
+            "ano": 2020,
+            "rodada": 1,
+            "visitante": {
+                "_id": "60243a96287fc10f7c39c756",
+                "nome": "Internacional",
+                "createdAt": "2021-02-10T19:57:10.053Z",
+                "__v": 0
+            },
+            "mandante": {
+                "_id": "602435a8a896930b48bad1ce",
+                "nome": "Santos",
+                "createdAt": "2021-02-10T19:36:08.409Z",
+                "__v": 0
+            },
+            "placar_visitante": 1,
+            "placar_mandante": 1,
+            "vencedor": 3,
+            "createdAt": "2021-02-10T20:25:08.369Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
