@@ -154,42 +154,14 @@ Retorno
 }
 ```
 
-- **`GET auth/projects/:projetecId`**: Rota para usuarios autenticados verem detalhe do projeto;
+- **`GET auth/time/:timeId`**: Rota para usuarios autenticados verem detalhe do time;
 Retorno
 ```
 {
-    "tasks": [
-        {
-            "completed": false,
-            "_id": "60229802b6776f3a00c9fcfc",
-            "title": "Novo tarefa 1",
-            "assignedTo": "602292c0630f3d4aec44526b",
-            "project": "60229802b6776f3a00c9fcfb",
-            "createdAt": "2021-02-09T14:11:14.857Z",
-            "__v": 0
-        },
-        {
-            "completed": false,
-            "_id": "60229802b6776f3a00c9fcfd",
-            "title": "Novo tarefa 2",
-            "assignedTo": "602292c0630f3d4aec44526b",
-            "project": "60229802b6776f3a00c9fcfb",
-            "createdAt": "2021-02-09T14:11:14.857Z",
-            "__v": 0
-        }
-    ],
-    "_id": "60229802b6776f3a00c9fcfb",
-    "title": "Novo projeto 6",
-    "description": "Descrição do novo projeto 6",
-    "user": {
-        "_id": "6021c427e6d27b282cad985c",
-        "name": "João",
-        "email": "jamjs7@gmail.com",
-        "createdAt": "2021-02-08T23:07:19.427Z",
-        "__v": 0
-    },
-    "createdAt": "2021-02-09T14:11:14.848Z",
-    "__v": 1
+    "_id": "6024358ea896930b48bad1ca",
+    "nome": "Vasco da Gama",
+    "createdAt": "2021-02-10T19:35:42.938Z",
+    "__v": 0
 }
 ```
 
