@@ -2,7 +2,6 @@ const express = require('express');
 const authMiddleware = require('../middlewares/auth');
 
 const Jogo = require('../models/jogo');
-const Task = require('../models/time');
 
 const router = express.Router();
 
@@ -30,20 +29,29 @@ router.get('/:projectId', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { title, description, tasks } = req.body;
+        const {
+            ano,
+            rodada,
+            visitante,
+            mandante,
+            placar_visitante,
+            placar_mandante,
+            vencedor,
+        } = req.body;
 
-        const project = await Project.create({ title, description, user: req.userId });
+        const jogo = await Jogo.create({
+            ano,
+            rodada,
+            visitante,
+            mandante,
+            placar_visitante,
+            placar_mandante,
+            vencedor,
+        });
 
-        await Promise.all(tasks.map(async task => {
-            const projectTask = new Task({ ...task, project: project._id });
+        await jogo.save();
 
-            await projectTask.save();
-            project.tasks.push(projectTask);
-        }));
-
-        await project.save();
-
-        return res.send({ project });
+        return res.send({ jogo });
     } catch (err) {
         return res.status(400).send({ error: 'Error creating new project', err });
     }
@@ -86,4 +94,4 @@ router.delete('/:projectId', async (req, res) => {
     }
 });
 
-module.exports = app => app.use('/projects', router);
+module.exports = app => app.use('/jogos', router);
