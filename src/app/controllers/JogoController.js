@@ -2,6 +2,7 @@ const express = require('express');
 const authMiddleware = require('../middlewares/auth');
 
 const Jogo = require('../models/jogo');
+const Rodada = require('../models/rodada');
 
 const router = express.Router();
 
@@ -51,6 +52,7 @@ router.post('/', async (req, res) => {
             vencedor,
         } = req.body;
 
+        
         if(visitante === mandante) {
             return res.status(400).send({ error: 'É necessario que dois times sejam enviados' });
         }
@@ -83,6 +85,63 @@ router.post('/', async (req, res) => {
         if(timeVisitante.length > 0) {
             return res.status(400).send({ error: 'O time visitante já jogou nessa roda esse ano' });
         }
+
+        const rodadaAnteriorCount = rodada > 1 ? rodada - 1 : rodada;
+
+
+        const rodadaAnteriorVisitante = await Rodada.find({
+            ano,
+            rodada: rodadaAnteriorCount,
+            time: visitante,
+        });
+
+        if(rodadaAnteriorVisitante.length == 0 && rodadaAnteriorCount !== 1) {
+            return res.status(400).send({
+                error: `É necessario cadastrar as rodadas em ordem cronológica. O visitante não tem a rodada ${rodadaAnteriorCount}.`
+            });
+        }
+
+        const rodadaAnteriorMandante = await Rodada.find({
+            ano,
+            rodada: rodadaAnteriorCount,
+            time: mandante,
+        });
+
+        if(rodadaAnteriorMandante.length == 0 && rodadaAnteriorCount !== 1) {
+            return res.status(400).send({
+                error: `É necessario cadastrar as rodadas em ordem cronológica. O mantante não tem a rodada ${rodadaAnteriorCount}.`
+            });
+        }
+
+        const gols_pro_visitante = rodadaAnteriorCount == 1 ? placar_visitante :rodadaAnteriorVisitante.gols_pro;
+        const gols_contra_visitante = rodadaAnteriorCount == 1 ? placar_mandante :rodadaAnteriorVisitante.gols_contra;
+        const gols_saldo_visitante = gols_pro_visitante - gols_contra_visitante;
+
+
+        const rodadaModelVisitante = await Rodada.create({
+            ano,
+            rodada,
+            visitante,
+            gols_pro: gols_pro_visitante,
+            gols_contra: gols_contra_visitante,
+            gols_saldo: gols_saldo_visitante,
+        });
+
+        const gols_pro_mandante = rodadaAnteriorCount == 1 ? placar_mandante :rodadaAnteriorMandante.gols_pro;
+        const gols_contra_mandante = rodadaAnteriorCount == 1 ? placar_visitante :rodadaAnteriorMandante.gols_contra;
+        const gols_saldo_mandante = gols_pro_mandante - gols_contra_mandante;
+
+        const rodadaModelMandante = await Rodada.create({
+            ano,
+            rodada,
+            visitante,
+            gols_pro: gols_pro_mandante,
+            gols_contra: gols_contra_mandante,
+            gols_saldo: gols_saldo_mandante,
+        });
+
+        await rodadaModelVisitante.save();
+        await rodadaModelMandante.save();
 
         const jogo = await Jogo.create({
             ano,
