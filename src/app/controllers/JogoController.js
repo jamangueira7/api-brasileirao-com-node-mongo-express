@@ -52,11 +52,16 @@ router.post('/', async (req, res) => {
             vencedor,
         } = req.body;
 
-        
+        //Rodada não pode ser igual a zero
+        if(rodada === 0) {
+            return res.status(400).send({ error: 'Rodada não pode ser igual a zero!' });
+        }
+        //Checar se adversarios são o iguais
         if(visitante === mandante) {
             return res.status(400).send({ error: 'É necessario que dois times sejam enviados' });
         }
 
+        //Busco se o time mandante já tem jogo nesse ano, nessa rodada como mandante ou visitante.
         const timeMandante = await Jogo.find({
             ano,
             rodada,
@@ -65,14 +70,11 @@ router.post('/', async (req, res) => {
             {'mandante':mandante}
         ]).populate(['visitante', 'mandante']);
 
-
-
         if(timeMandante.length > 0) {
             return res.status(400).send({ error: 'O time mandante já jogou nessa roda esse ano' });
         }
 
-
-
+        //Busco se o time mandante já tem jogo nesse ano, nessa rodada como mandante ou visitante.
         const timeVisitante = await Jogo.find({
             ano,
             rodada,
@@ -81,14 +83,17 @@ router.post('/', async (req, res) => {
             {'mandante':visitante}
         ]);
 
-
         if(timeVisitante.length > 0) {
             return res.status(400).send({ error: 'O time visitante já jogou nessa roda esse ano' });
         }
 
+        
+
+
+        //************** Add Rodada ********************
         const rodadaAnteriorCount = rodada > 1 ? rodada - 1 : rodada;
 
-
+        //busco se o visitante já tem rodada
         const rodadaAnteriorVisitante = await Rodada.find({
             ano,
             rodada: rodadaAnteriorCount,
@@ -100,7 +105,7 @@ router.post('/', async (req, res) => {
                 error: `É necessario cadastrar as rodadas em ordem cronológica. O visitante não tem a rodada ${rodadaAnteriorCount}.`
             });
         }
-
+        //busco se o mandante já tem rodada
         const rodadaAnteriorMandante = await Rodada.find({
             ano,
             rodada: rodadaAnteriorCount,
@@ -113,11 +118,12 @@ router.post('/', async (req, res) => {
             });
         }
 
+        //Faço os calculos para add os valores corretos para o visitante
         const gols_pro_visitante = rodadaAnteriorCount == 1 ? placar_visitante :rodadaAnteriorVisitante.gols_pro;
         const gols_contra_visitante = rodadaAnteriorCount == 1 ? placar_mandante :rodadaAnteriorVisitante.gols_contra;
         const gols_saldo_visitante = gols_pro_visitante - gols_contra_visitante;
 
-
+        //Crio o valor o objeto
         const rodadaModelVisitante = await Rodada.create({
             ano,
             rodada,
@@ -127,10 +133,12 @@ router.post('/', async (req, res) => {
             gols_saldo: gols_saldo_visitante,
         });
 
+        //Faço os calculos para add os valores corretos para o mandante
         const gols_pro_mandante = rodadaAnteriorCount == 1 ? placar_mandante :rodadaAnteriorMandante.gols_pro;
         const gols_contra_mandante = rodadaAnteriorCount == 1 ? placar_visitante :rodadaAnteriorMandante.gols_contra;
         const gols_saldo_mandante = gols_pro_mandante - gols_contra_mandante;
 
+        //Crio o valor o objeto
         const rodadaModelMandante = await Rodada.create({
             ano,
             rodada,
@@ -140,8 +148,10 @@ router.post('/', async (req, res) => {
             gols_saldo: gols_saldo_mandante,
         });
 
+        //Salvo em banco
         await rodadaModelVisitante.save();
         await rodadaModelMandante.save();
+        //************** Add Rodada fim ********************
 
         const jogo = await Jogo.create({
             ano,
@@ -156,6 +166,7 @@ router.post('/', async (req, res) => {
         await jogo.save();
 
         return res.send({ jogo });
+
     } catch (err) {
         return res.status(400).send({ error: 'Error creating new project', err });
     }
