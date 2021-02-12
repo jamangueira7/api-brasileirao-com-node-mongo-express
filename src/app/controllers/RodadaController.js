@@ -14,7 +14,7 @@ router.get('/:ano/:rodadaId', async (req, res) => {
         const jogosRodada = await Rodada.find({
             ano,
             rodada: rodadaId,
-        }).sort({
+        }).populate(['time']).sort({
             vitoria: -1,
             empate: -1,
             derrota: 1,
@@ -22,8 +22,8 @@ router.get('/:ano/:rodadaId', async (req, res) => {
             gols_pro: -1,
             gols_contra: -1,
         });
-    //.populate(['time']).
-        return res.send(jogosRodada);
+
+        return res.send({ "classificacao": jogosRodada });
 
     } catch (err) {
         return res.status(400).send({ error: 'Erro ao buscar detalhe do time.' });
