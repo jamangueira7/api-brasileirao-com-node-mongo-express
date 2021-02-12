@@ -15,9 +15,12 @@ router.get('/:ano/:rodadaId', async (req, res) => {
             ano,
             rodada: rodadaId,
         }).sort({
-            gols_saldo: -1,
+            vitoria: -1,
+            empate: -1,
+            derrota: 1,
+            gols_saldo: 1,
             gols_pro: -1,
-            gols_contra: 1,
+            gols_contra: -1,
         });
     //.populate(['time']).
         return res.send(jogosRodada);
