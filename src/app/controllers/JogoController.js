@@ -87,8 +87,21 @@ router.post('/', async (req, res) => {
             return res.status(400).send({ error: 'O time visitante já jogou nessa roda esse ano' });
         }
 
-        
+        const timesJaSeEnfrentaram = await Jogo.findOne({
+            ano,
+        }).or([
+            {'visitante':visitante, 'mandante':mandante},
+            {'visitante':mandante, 'mandante':visitante}
+        ]).populate(['visitante', 'mandante']);
 
+        if(timesJaSeEnfrentaram !== null &&
+            timesJaSeEnfrentaram.visitante._id == visitante &&
+            timesJaSeEnfrentaram.mandante._id == mandante
+        ) {
+            return res.status(400).send({
+                error: `O times já se enfrentaram com essa configuração ${timesJaSeEnfrentaram.mandante.nome} (Mandante) X ${timesJaSeEnfrentaram.visitante.nome} (Visitante) na rodada ${timesJaSeEnfrentaram.rodada} em ${ano}.`
+            });
+        }
 
         //************** Add Rodada ********************
         const rodadaAnteriorCount = rodada > 1 ? rodada - 1 : rodada;
@@ -100,7 +113,7 @@ router.post('/', async (req, res) => {
             time: visitante,
         });
 
-        if(rodadaAnteriorVisitante.length == 0 && rodadaAnteriorCount !== 1) {
+        if(rodadaAnteriorVisitante.length == 0 && rodada !== 1) {
             return res.status(400).send({
                 error: `É necessario cadastrar as rodadas em ordem cronológica. O visitante não tem a rodada ${rodadaAnteriorCount}.`
             });
@@ -112,7 +125,7 @@ router.post('/', async (req, res) => {
             time: mandante,
         });
 
-        if(rodadaAnteriorMandante.length == 0 && rodadaAnteriorCount !== 1) {
+        if(rodadaAnteriorMandante.length == 0 && rodada !== 1) {
             return res.status(400).send({
                 error: `É necessario cadastrar as rodadas em ordem cronológica. O mantante não tem a rodada ${rodadaAnteriorCount}.`
             });
@@ -127,7 +140,7 @@ router.post('/', async (req, res) => {
         const rodadaModelVisitante = await Rodada.create({
             ano,
             rodada,
-            visitante,
+            time: visitante,
             gols_pro: gols_pro_visitante,
             gols_contra: gols_contra_visitante,
             gols_saldo: gols_saldo_visitante,
@@ -142,7 +155,7 @@ router.post('/', async (req, res) => {
         const rodadaModelMandante = await Rodada.create({
             ano,
             rodada,
-            visitante,
+            time: mandante,
             gols_pro: gols_pro_mandante,
             gols_contra: gols_contra_mandante,
             gols_saldo: gols_saldo_mandante,

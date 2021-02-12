@@ -18,16 +18,16 @@ const RodadaSchema = new mongoose.Schema({
     },
 
     gols_pro: {
-        type: Number,
+        type: String,
         require: true,
     },
 
     gols_contra: {
-        type: Number,
+        type: String,
         require: true,
     },
     gols_saldo: {
-        type: Number,
+        type: String,
         require: true,
     },
     createdAt: {
