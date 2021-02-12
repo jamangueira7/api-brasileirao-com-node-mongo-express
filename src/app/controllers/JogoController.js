@@ -166,6 +166,20 @@ router.post('/', async (req, res) => {
         await rodadaModelMandante.save();
         //************** Add Rodada fim ********************
 
+        if(placar_mandante > placar_visitante && vencedor !== 1) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Mandante venceu, coloque 1.`
+            });
+        } else if (placar_mandante < placar_visitante && vencedor !== 2) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Visitante venceu, coloque 2.`
+            });
+        } else if (placar_mandante == placar_visitante && vencedor !== 3) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Jogo empatou, coloque 3.`
+            });
+        }
+
         const jogo = await Jogo.create({
             ano,
             rodada,
