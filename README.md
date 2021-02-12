@@ -370,6 +370,127 @@ Envio
     ]
 }
 ```
+
+- **`GET /rodadas/:ano/:rodadaId`**: Rota para usuarios autenticados consultarem a classificação por ano e rodada;
+ Retorno
+ ```
+{
+    "classificação": [
+         {
+             "vitoria": "1",
+             "derrota": "0",
+             "empate": "0",
+             "_id": "6025e20b6710dc52481e7140",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435c3a896930b48bad1d2",
+             "gols_pro": "2",
+             "gols_contra": "1",
+             "gols_saldo": "1",
+             "createdAt": "2021-02-12T02:03:55.952Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "1",
+             "derrota": "0",
+             "empate": "0",
+             "_id": "6025e2936710dc52481e7143",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435aea896930b48bad1cf",
+             "gols_pro": "2",
+             "gols_contra": "1",
+             "gols_saldo": "1",
+             "createdAt": "2021-02-12T02:06:11.782Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "1",
+             "derrota": "0",
+             "empate": "0",
+             "_id": "6025e2d76710dc52481e7148",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435cfa896930b48bad1d4",
+             "gols_pro": "4",
+             "gols_contra": "1",
+             "gols_saldo": "3",
+             "createdAt": "2021-02-12T02:07:19.916Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "1",
+             "derrota": "0",
+             "empate": "0",
+             "_id": "6025e3176710dc52481e714b",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435a8a896930b48bad1ce",
+             "gols_pro": "5",
+             "gols_contra": "1",
+             "gols_saldo": "4",
+             "createdAt": "2021-02-12T02:08:23.997Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "0",
+             "derrota": "1",
+             "empate": "0",
+             "_id": "6025e20b6710dc52481e713f",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435cba896930b48bad1d3",
+             "gols_pro": "1",
+             "gols_contra": "2",
+             "gols_saldo": "-1",
+             "createdAt": "2021-02-12T02:03:55.904Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "0",
+             "derrota": "1",
+             "empate": "0",
+             "_id": "6025e2936710dc52481e7142",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435b6a896930b48bad1d0",
+             "gols_pro": "1",
+             "gols_contra": "2",
+             "gols_saldo": "-1",
+             "createdAt": "2021-02-12T02:06:11.779Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "0",
+             "derrota": "1",
+             "empate": "0",
+             "_id": "6025e2d76710dc52481e7149",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "60243a96287fc10f7c39c756",
+             "gols_pro": "1",
+             "gols_contra": "4",
+             "gols_saldo": "-3",
+             "createdAt": "2021-02-12T02:07:19.919Z",
+             "__v": 0
+         },
+         {
+             "vitoria": "0",
+             "derrota": "1",
+             "empate": "0",
+             "_id": "6025e3186710dc52481e714c",
+             "ano": 2020,
+             "rodada": 1,
+             "time": "602435a5a896930b48bad1cd",
+             "gols_pro": "1",
+             "gols_contra": "5",
+             "gols_saldo": "-4",
+             "createdAt": "2021-02-12T02:08:24.000Z",
+             "__v": 0
+         }
+     ]
+}
+```
 ## 🤔 Como contribuir
 
 - Faça um fork desse repositório;
