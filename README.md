@@ -16,10 +16,6 @@
 
 <br>
 
-<p align="center">
-  <img alt="Sistema" src=".github/imagem1.PNG" width="100%">
-</p>
-
 ## API rest mostrar rodadas do Brasileirão
 
 ## 🚀 Tecnologias
