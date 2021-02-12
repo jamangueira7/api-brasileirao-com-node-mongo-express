@@ -17,6 +17,24 @@ const RodadaSchema = new mongoose.Schema({
         require: true,
     },
 
+    vitoria: {
+        type: String,
+        require: true,
+        default: "0",
+    },
+
+    derrota: {
+        type: String,
+        require: true,
+        default: "0",
+    },
+
+    empate: {
+        type: String,
+        require: true,
+        default: "0",
+    },
+
     gols_pro: {
         type: String,
         require: true,

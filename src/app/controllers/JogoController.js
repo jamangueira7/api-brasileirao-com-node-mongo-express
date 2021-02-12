@@ -8,6 +8,14 @@ const router = express.Router();
 
 router.use(authMiddleware);
 
+function addValor(valor) {
+    if(valor == null) {
+        return 1;
+    }
+
+    return valor + 1;
+}
+
 router.get('/:ano/:rodada', async (req, res) => {
     try {
         const { ano, rodada } = req.params;
@@ -103,6 +111,20 @@ router.post('/', async (req, res) => {
             });
         }
 
+        if(placar_mandante > placar_visitante && vencedor !== 1) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Mandante venceu, coloque 1.`
+            });
+        } else if (placar_mandante < placar_visitante && vencedor !== 2) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Visitante venceu, coloque 2.`
+            });
+        } else if (placar_mandante == placar_visitante && vencedor !== 3) {
+            return res.status(400).send({
+                error: `Acerte o vencedor. Jogo empatou, coloque 3.`
+            });
+        }
+
         //************** Add Rodada ********************
         const rodadaAnteriorCount = rodada > 1 ? rodada - 1 : rodada;
 
@@ -136,11 +158,18 @@ router.post('/', async (req, res) => {
         const gols_contra_visitante = rodadaAnteriorCount == 1 ? placar_mandante :rodadaAnteriorVisitante.gols_contra;
         const gols_saldo_visitante = gols_pro_visitante - gols_contra_visitante;
 
+        const vitoria_visitante = vencedor == 2 ? addValor(rodadaAnteriorVisitante.vitoria) : rodadaAnteriorVisitante.vitoria;
+        const derrota_visitante = vencedor == 1 ? addValor(rodadaAnteriorVisitante.derrota) :rodadaAnteriorVisitante.derrota;
+        const empate_visitante = vencedor == 3 ? addValor( rodadaAnteriorVisitante.empate) :rodadaAnteriorVisitante.empate;
+
         //Crio o valor o objeto
         const rodadaModelVisitante = await Rodada.create({
             ano,
             rodada,
             time: visitante,
+            vitoria: vitoria_visitante,
+            derrota: derrota_visitante,
+            empate: empate_visitante,
             gols_pro: gols_pro_visitante,
             gols_contra: gols_contra_visitante,
             gols_saldo: gols_saldo_visitante,
@@ -151,11 +180,18 @@ router.post('/', async (req, res) => {
         const gols_contra_mandante = rodadaAnteriorCount == 1 ? placar_visitante :rodadaAnteriorMandante.gols_contra;
         const gols_saldo_mandante = gols_pro_mandante - gols_contra_mandante;
 
+        const vitoria_mandante = vencedor == 1 ? addValor(rodadaAnteriorMandante.vitoria) : rodadaAnteriorMandante.vitoria;
+        const derrota_mandante = vencedor == 2 ? addValor(rodadaAnteriorMandante.derrota) :rodadaAnteriorMandante.derrota;
+        const empate_mandante = vencedor == 3 ? addValor(rodadaAnteriorMandante.empate) :rodadaAnteriorMandante.empate;
+
         //Crio o valor o objeto
         const rodadaModelMandante = await Rodada.create({
             ano,
             rodada,
             time: mandante,
+            vitoria: vitoria_mandante,
+            derrota: derrota_mandante,
+            empate: empate_mandante,
             gols_pro: gols_pro_mandante,
             gols_contra: gols_contra_mandante,
             gols_saldo: gols_saldo_mandante,
@@ -165,20 +201,6 @@ router.post('/', async (req, res) => {
         await rodadaModelVisitante.save();
         await rodadaModelMandante.save();
         //************** Add Rodada fim ********************
-
-        if(placar_mandante > placar_visitante && vencedor !== 1) {
-            return res.status(400).send({
-                error: `Acerte o vencedor. Mandante venceu, coloque 1.`
-            });
-        } else if (placar_mandante < placar_visitante && vencedor !== 2) {
-            return res.status(400).send({
-                error: `Acerte o vencedor. Visitante venceu, coloque 2.`
-            });
-        } else if (placar_mandante == placar_visitante && vencedor !== 3) {
-            return res.status(400).send({
-                error: `Acerte o vencedor. Jogo empatou, coloque 3.`
-            });
-        }
 
         const jogo = await Jogo.create({
             ano,
