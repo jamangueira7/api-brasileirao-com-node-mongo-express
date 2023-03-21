@@ -36,12 +36,12 @@ Projeto para cadastro de rodadas do Brasileirão usando NodeJS, Express, MongoDB
 ## 🚀 Como Rodar
 
 - Clone o projeto.
-- Rode o comando "yarn install" para instalar as dependências.
-- Rode o comando "docker run --name mongodb -p 27017:27017 -d -t mongo"
+- Rode o comando `yarn install` para instalar as dependências.
+- Rode o comando `docker run --name mongodb -p 27017:27017 -d -t mongo`
 - docker ps para ver se o Mongo está rodando no Docker.
 - Caso não esteja docker start mongo para rodar.
-- Rode o comando "node src/index.js" para iniciar a API.
-- Para testar a API acesse localhost:3000.
+- Rode o comando `node src/index.js` para iniciar a API.
+- Para testar a API acesse `localhost:3000`.
 
 ## 👩🏿‍💻 Rotas
 
